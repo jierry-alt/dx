@@ -32,7 +32,11 @@
         }
         @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        .container { position: relative; z-index: 10; max-width: 380px; margin: 85px auto 30px; padding: 0 20px; text-align: center; }
+        .container { 
+            position: relative; z-index: 10; 
+            max-width: 380px; margin: 90px auto 40px; 
+            padding: 0 20px; text-align: center; 
+        }
 
         .title { font-size: 32px; font-weight: 900; background: linear-gradient(to right, #c4b5fd, #f0abfc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 8px 0 6px; }
         .subtitle { font-size: 15px; color: #d8b4fe; }
@@ -42,15 +46,15 @@
             backdrop-filter: blur(14px);
             border: 1px solid rgba(255,255,255,0.22);
             border-radius: 20px;
-            padding: 18px;
-            margin: 18px 0;
+            padding: 20px;
+            margin: 20px 0;
         }
 
-        .node-item {
+        .node-box {
             background: rgba(255,255,255,0.12);
             padding: 16px;
             border-radius: 16px;
-            margin: 14px 0;
+            margin: 16px 0;
             font-size: 18px;
             font-family: monospace;
             cursor: pointer;
@@ -62,7 +66,7 @@
             border-radius: 18px;
             font-size: 18px;
             font-weight: bold;
-            margin: 14px 0;
+            margin: 16px 0;
             display: block;
             color: white;
             text-decoration: none;
@@ -70,61 +74,9 @@
 
         .btn-secondary {
             background: rgba(255,255,255,0.16);
-            padding: 14px;
+            padding: 15px;
             border-radius: 16px;
             font-size: 16px;
         }
     </style>
 </head>
-<body>
-
-    <div class="stars" id="stars"></div>
-
-    <!-- 跑马灯 -->
-    <div class="marquee">
-        <div class="marquee-content">
-            🔥 致敬裤佬！翻墙违法 白嫖无罪 🔥&nbsp;&nbsp;&nbsp;&nbsp;
-            致敬裤佬！翻墙违法 白嫖无罪 &nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-    </div>
-
-    <!-- 音乐按钮 -->
-    <button onclick="toggleMusic()" id="music-btn"
-            style="position: fixed; top: 14px; left: 14px; z-index: 100; width: 48px; height: 48px; background: rgba(255,255,255,0.15); border: none; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px;">
-        <i class="fas fa-music"></i>
-    </button>
-
-    <div class="container">
-        <div style="margin-bottom: 24px;">
-            <div style="width: 64px; height: 64px; background: rgba(255,255,255,0.15); border-radius: 20px; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center;">
-                <i class="fab fa-telegram-plane" style="font-size: 38px; color: #c4b5fd;"></i>
-            </div>
-            <h1 class="title">Eternity</h1>
-            <p class="subtitle">永恒连接</p>
-        </div>
-
-        <div class="glass">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 16px; font-size: 13px;">
-                <div>
-                    <div style="color: #c4b5fe;">STATUS</div>
-                    <div style="color: #4ade80; font-weight: bold;">● 在线</div>
-                </div>
-                <div style="text-align: right;">
-                    <div style="color: #c4b5fe;">PROTOCOL</div>
-                    <div style="font-weight: bold;">SOCKS5</div>
-                </div>
-            </div>
-
-            <div class="node-item" onclick="copyConfig()">
-                <div style="font-size: 13px; color: #d8b4fe;">节点 1</div>
-                <div>143.14.105.121:5555</div>
-            </div>
-
-            <a href="tg://socks?server=143.14.105.121&port=5555&user=hanbaocloud&pass=hanbaocloud" 
-               class="btn-primary">
-                一键连接当前节点
-            </a>
-        </div>
-
-        <!-- 修改后的两个按钮 -->
-        <div style="display: grid; grid-template-columns: 1fr 1

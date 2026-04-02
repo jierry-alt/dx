@@ -6,67 +6,48 @@
     <title>Eternity - 永恒连接</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        eternity: '#22c55e',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        :root {
-            --transition-speed: 0.5s;
-        }
-
         body {
-            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
             overflow: hidden;
+            background: #000;
         }
 
-        /* 炫酷春雨绿色背景 */
-        .rain-bg {
+        /* 炫酷星空背景 */
+        .star-bg {
             position: fixed;
             inset: 0;
-            z-index: -1;
-            background: linear-gradient(135deg, #052e16, #166534, #4ade80, #86efac, #22c55e);
-            background-size: 400% 400%;
-            animation: gradientShift 20s ease infinite;
-            overflow: hidden;
+            z-index: -2;
+            background: radial-gradient(circle at 30% 20%, rgba(120, 80, 200, 0.25), transparent 50%),
+                        radial-gradient(circle at 70% 60%, rgba(80, 180, 255, 0.2), transparent 60%),
+                        #0a0a1f;
+            animation: nebulaFlow 40s linear infinite;
         }
 
-        @keyframes gradientShift {
+        @keyframes nebulaFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* 春雨粒子效果 - 绿色光晕 */
-        .rain {
-            position: absolute;
+        /* 多层闪烁星星 */
+        .stars {
+            position: fixed;
             inset: 0;
-            background: transparent;
+            z-index: -1;
             pointer-events: none;
         }
 
-        .drop {
+        .star {
             position: absolute;
-            width: 2.5px;
-            height: 65px;
-            background: linear-gradient(transparent, rgba(163, 230, 187, 0.95));
-            box-shadow: 0 0 8px #4ade80, 0 0 15px #22c55e;
-            animation: fall linear infinite;
-            opacity: 0.85;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 6px #a5b4fc;
+            animation: twinkle linear infinite;
         }
 
-        @keyframes fall {
-            to {
-                transform: translateY(100vh);
-            }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 1; }
         }
 
         /* 跑马灯 */
@@ -77,9 +58,25 @@
             right: 0;
             z-index: 50;
             overflow: hidden;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(12px);
-            border-bottom: 3px solid rgba(163, 230, 187, 0.4);
+            background: rgba(0, 0, 20, 0.75);
+            backdrop-filter: blur(10px);
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: marquee 26s linear infinite;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            background: linear-gradient(90deg, #c4d0ff, #a5b4fc, #c4d0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
        

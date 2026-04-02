@@ -2,27 +2,32 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Eternity - 永恒连接</title>
     
-    <!-- 使用更稳定的 Tailwind CDN -->
+    <!-- 稳定 Tailwind CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    
     <style>
         body {
             overflow: hidden;
-            background: #000;
         }
 
-        /* 炫酷星空背景 */
+        /* 炫酷紫色星空背景 */
         .star-bg {
             position: fixed;
             inset: 0;
             z-index: -2;
-            background: radial-gradient(circle at 30% 20%, rgba(120, 80, 200, 0.25), transparent 50%),
-                        radial-gradient(circle at 70% 60%, rgba(80, 180, 255, 0.2), transparent 60%),
-                        #0a0a1f;
+            background: linear-gradient(135deg, #2a1b4a, #4c1d95, #7e22ce, #c026d3);
+            background-size: 400% 400%;
+            animation: nebula 35s ease infinite;
+        }
+
+        @keyframes nebula {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* 闪烁星星 */
@@ -37,15 +42,16 @@
             position: absolute;
             background: #fff;
             border-radius: 50%;
-            box-shadow: 0 0 8px #a5b4fc;
-            animation: twinkle 3s linear infinite;
+            box-shadow: 0 0 10px #e0bbff;
+            animation: twinkle 4s linear infinite;
         }
 
         @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
+            0%, 100% { opacity: 0.4; }
             50% { opacity: 1; }
         }
 
+        /* 跑马灯 */
         .marquee {
             position: fixed;
             top: 0;
@@ -53,18 +59,18 @@
             right: 0;
             z-index: 50;
             overflow: hidden;
-            background: rgba(10, 10, 30, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(30, 10, 60, 0.85);
+            backdrop-filter: blur(12px);
         }
 
         .marquee-content {
             display: inline-flex;
             white-space: nowrap;
-            animation: marquee 26s linear infinite;
+            animation: marquee 28s linear infinite;
             font-size: 1.05rem;
             font-weight: 700;
             letter-spacing: 4px;
-            background: linear-gradient(90deg, #c4d0ff, #a5b4fc);
+            background: linear-gradient(90deg, #e0bbff, #c4b5fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -75,111 +81,31 @@
         }
 
         .gradient-text {
-            background: linear-gradient(135deg, #a5b4fc, #e0e7ff);
+            background: linear-gradient(135deg, #c4b5fd, #e0bbff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center text-white">
+<body class="min-h-screen flex items-center justify-center text-white font-sans">
 
+    <!-- 紫色星空背景 -->
     <div class="star-bg"></div>
     <div class="stars" id="stars"></div>
 
     <!-- 跑马灯 -->
-    <div class="marquee">
+    <div class="marquee py-2">
         <div class="marquee-content">
             🔥 致敬裤佬！翻墙违法 白嫖无罪 🔥&nbsp;&nbsp;&nbsp;&nbsp;
             致敬裤佬！翻墙违法 白嫖无罪 &nbsp;&nbsp;&nbsp;&nbsp;
         </div>
     </div>
 
+    <!-- 音乐按钮 -->
     <button onclick="toggleMusic()" id="music-btn"
-            class="fixed top-6 left-6 z-50 w-11 h-11 rounded-full bg-white/10 border border-white/30 flex items-center justify-center hover:scale-110 transition-all">
-        <i class="fas fa-music text-indigo-300 text-xl"></i>
+            class="fixed top-6 left-6 z-50 w-12 h-12 rounded-2xl bg-white/10 border border-white/30 flex items-center justify-center active:scale-95 transition-all">
+        <i class="fas fa-music text-violet-300 text-2xl"></i>
     </button>
 
-    <div class="relative z-10 w-full max-w-md px-6 pt-12">
-        <div class="text-center mb-10">
-            <div class="inline-block p-4 rounded-3xl bg-white/10 mb-6">
-                <i class="fab fa-telegram-plane text-5xl text-indigo-300 animate-pulse"></i>
-            </div>
-            <h1 class="text-3xl font-black tracking-tighter gradient-text">
-                Eternity
-            </h1>
-            <p class="text-indigo-200 text-sm mt-1">永恒连接 · 星空自由</p>
-        </div>
-
-        <div class="bg-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/10">
-            <div class="space-y-6">
-                <div onclick="copyConfig()" class="bg-white/10 rounded-2xl p-5 cursor-pointer hover:bg-white/15 transition-all">
-                    <p class="text-xs text-indigo-200 mb-1">节点地址</p>
-                    <p class="font-mono text-xl">143.14.105.121:5555</p>
-                </div>
-
-                <a href="tg://socks?server=143.14.105.121&port=5555&user=hanbaocloud&pass=hanbaocloud" 
-                   class="block text-center bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 py-5 rounded-2xl font-bold text-xl transition-all">
-                    一键连接 Eternity
-                </a>
-            </div>
-        </div>
-
-        <div class="mt-8 grid grid-cols-2 gap-4">
-            <button onclick="playSong()" class="bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium transition-all">那些花儿</button>
-            <a href="https://zxsla.github.io/a/" target="_blank" class="bg-white/10 hover:bg-white/20 py-4 rounded-2xl font-medium text-center transition-all">个人导航</a>
-        </div>
-    </div>
-
-    <div id="toast" class="hidden fixed bottom-8 left-1/2 -translate-x-1/2 bg-zinc-900 text-white px-6 py-3 rounded-2xl shadow-2xl">
-        配置已复制到剪贴板
-    </div>
-
-    <audio id="bg-music" loop>
-        <source src="https://files.catbox.moe/udaz0l.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        function copyConfig() {
-            navigator.clipboard.writeText("tg://socks?server=143.14.105.121&port=5555&user=hanbaocloud&pass=hanbaocloud").then(() => {
-                const toast = document.getElementById('toast');
-                toast.classList.remove('hidden');
-                setTimeout(() => toast.classList.add('hidden'), 2000);
-            });
-        }
-
-        let music = document.getElementById('bg-music');
-        let isPlaying = false;
-        function toggleMusic() {
-            if (isPlaying) music.pause(); else music.play().catch(() => {});
-            isPlaying = !isPlaying;
-            document.getElementById('music-btn').innerHTML = isPlaying 
-                ? '<i class="fas fa-pause text-indigo-300 text-xl"></i>' 
-                : '<i class="fas fa-music text-indigo-300 text-xl"></i>';
-        }
-
-        function playSong() {
-            window.open('https://www.youtube.com/watch?v=149r0W_ah9s', '_blank');
-        }
-
-        function createStars() {
-            const container = document.getElementById('stars');
-            for (let i = 0; i < 160; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const size = Math.random() * 3 + 1;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.top = Math.random() * 100 + 'vh';
-                star.style.animationDuration = (Math.random() * 4 + 2) + 's';
-                container.appendChild(star);
-            }
-        }
-
-        window.onload = () => {
-            createStars();
-            music.volume = 0.35;
-        };
-    </script>
-</body>
-</html>
+    <!-- 主题切换按钮 -->
+    <button onclick="toggleTheme()" 

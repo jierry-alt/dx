@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eternity - 永恒连接</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        tgblue: '#0088cc',
+                        tgalternate: '#00fbff',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --transition-speed: 0.5s;
+        }
+
+        body {
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+            overflow: hidden;
+        }
+
+        /* 炫彩流动背景 + 大雨滂沱 */
+        .rain-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: linear-gradient(135deg, #1e3a8a, #7e22ce, #ec4899, #f59e0b, #22d3ee);
+            background-size: 400% 400%;
+            animation: gradientShift 18s ease infinite;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 大雨粒子效果 */
+        .rain {
+            position: absolute;
+            inset: 0;
+            background: transparent;
+            pointer-events: none;
+        }
+
+        .drop {
+            position: absolute;
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(transparent, rgba(255,255,255,0.85));
+            animation: fall linear infinite;
+            opacity: 0.75;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* 跑马灯 */
+        .marquee {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 3px solid rgba(255,255,255,0.2);
+        }
+
+        .marquee-content {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: marquee 24s linear infinite;
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: 6px;
+            background: linear-gradient(90deg, #ff00ff, #00ffff, #ffff00, #ff8800, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 12px 0;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .glass-card {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #67e8f9, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-white min-h-screen flex items-center justify-center">
+
+    <!-- 炫彩大雨背景 -->
+    <div class="rain-bg">
+        <div class="rain" id="rain"></div>
+    </div>
+
+    <!-- 跑马灯 -->
+    <div class="marquee">
+        <div class="marquee-content">
+            🔥 致敬裤佬！翻墙违法 白嫖无罪 🔥&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            致敬裤佬！翻墙违法 白嫖无罪 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+
+    <button id="theme-toggle" onclick="toggleTheme()" 
+            class="fixed top-6 right-6 z-50 w-12 h-12 rounded-full bg-white/20 dark:bg-black/20 border border-slate-200 dark:border-white/10 flex items-center justify-center shadow-lg hover:scale-110 active:scale-90 transition-all">
+        <i class="fas fa-sun text-yellow-400 text-xl"></i>
+        <i class="fas fa-moon text-blue-400 text-xl"></i>
+    </button>
+
+    <!-- 音乐控制按钮 -->
+    <button onclick="toggleMusic()" id="music-btn"
+            class="fixed top-6 left-6 z-50 w-12 h-12 rounded-full bg-white/20 dark:bg-black/20 border border-slate-200 dark:border-white/10 flex items-center justify-center shadow-lg hover:scale-110 active:scale-90 transition-all">
+        <i class="fas fa-music text-pink-400 text-xl"></i>
+    </button>
+
+    <div class="relative z-10 w-full max-w-md px-6 pt-12">
+        <div class="text-center mb-10">
+            <div class="inline-block p-6 rounded-[2.5rem] bg-gradient-to-br from-cyan-400 via-purple-500 to-pink-500 mb-6 ring-1 ring-white/30 shadow-2xl">
+                <i class="fab fa-telegram-plane text-7xl text-white drop-shadow-lg animate-pulse"></i>
+            </div>
+            <h1 class="text-6xl font-black tracking-[-2px] mb-3 gradient-text">
+                Eternity
+            </h1>
+            <p class="text-slate-300 dark:text-slate-400 text-base tracking-[4px] uppercase font-light">永恒代理 · 永恒自由</p>
+        </div>
+
+        <div class="glass-card bg-white/75 dark:bg-white/5 rounded-[2.75rem] p-9 border border-white/30 dark:border-white/10 shadow-2xl">
+            <div class="flex items-center justify-between mb-8 pb-5 border-b border-slate-200 dark:border-white/10">
+                <div class="text-left">
+                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Server Status</p>
+                    <p class="text-emerald-500 font-bold flex items-center gap-2 text-lg">
+                        <span class="relative flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                        </span>
+                        在线 · 稳定
+                    </p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Protocol</p>
+                    <p class="font-black text-cyan-400 text-xl">SOCKS5</p>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div class="bg-slate-100 dark:bg-black/40 rounded-3xl p-5 border border-slate-200 dark:border-white/10 group relative cursor-pointer active:scale-[0.985] transition-transform" onclick="copyConfig()">
+                    <p class="text-xs text-slate-400 mb-1.5 font-bold tracking-widest">节点地址</p>
+                    <p class="text-2xl font-mono font-semibold text-slate-800 dark:text-white tracking-tight">143.14.105.121:5555</p>
+                    <div class="absolute right-6 top-1/2 -translate-y-1/2 text-slate-400 group-hover:text-cyan-400 transition-colors">
+                        <i class="far fa-copy text-2xl"></i>
+                    </div>
+                </div>
+
+                <a href="tg://socks?server=143.14.105.121&port=5555&user=hanbaocloud&pass=hanbaocloud" 
+                   class="group relative w-full bg-gradient-to-r from-cyan-500 to-violet-600 hover:from-cyan-600 hover:to-violet-700 text-white py-6 rounded-3xl font-bold text-2xl flex items-center justify-center gap-4 transition-all shadow-2xl overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:animate-[shimmer_1.8s_infinite]"></div>
+                    <i class="fas fa-bolt text-3xl"></i> 
+                    一键连接 Eternity
+                </a>
+            </div>
+
+            <div class="mt-8 flex justify-around text-center">
+                <div>
+                    <p class="text-[10px] text-slate-400 font-bold mb-1">延迟</p>
+                    <p class="text-2xl font-mono font-bold text-emerald-400">24ms</p>
+                </div>
+                <div class="border-x border-slate-200 dark:border-white/10 px-10">
+                    <p class="text-[10px] text-slate-400 font-bold mb-1">加密</p>
+                    <p class="text-2xl font-mono font-bold">AES-256</p>
+                </div>
+                <div>
+                    <p class="text-[10px] text-slate-400 font-bold mb-1">负载</p>
+                    <p class="text-2xl font-mono font-bold text-amber-400">12%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 功能按钮 -->
+        <div class="mt-8 grid grid-cols-2 gap-4">
+            <button onclick="playSong()" 
+                    class="bg-gradient-to-r from-fuchsia-500 to-purple-600 hover:from-fuchsia-600 hover:to-purple-700 text-white py-5 rounded-3xl font-bold text-lg flex items-center justify-center gap-3 shadow-xl transition-all active:scale-95">
+                <i class="fas fa-music"></i> 那些花儿
+            </button>
+            
+            <a href="https://zxsla.github.io/a/" target="_blank"
+               class="bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white py-5 rounded-3xl font-bold text-lg flex items-center justify-center gap-3 shadow-xl transition-all active:scale-95">
+                <i class="fas fa-compass"></i> 个人导航
+            </a>
+        </div>
+
+        <div class="mt-12 text-center space-y-3">
+            <p class="text-slate-400 dark:text-slate-500 text-sm italic">
+                “ 永恒的速度，永恒的自由 ”
+            </p>
+            <div class="flex justify-center gap-4 text-xs font-medium text-slate-500 dark:text-slate-600">
+                <span>Eternity Proxy</span>
+                <span>•</span>
+                <span>2026</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 opacity-0 transition-all duration-300 pointer-events-none translate-y-10 z-50">
+        <div class="bg-slate-900/90 dark:bg-white text-white dark:text-slate-900 px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-3 font-semibold text-base backdrop-blur-xl">
+            <i class="fas fa-check-circle text-emerald-500 text-2xl"></i>
+            配置已复制到剪贴板
+        </div>
+    </div>
+
+    <!-- 背景音乐 -->
+    <audio id="bg-music" loop>
+        <source src="https://files.catbox.moe/udaz0l.mp3" type="audio/mpeg">
+    </audio>
+
+    <style>
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+    </style>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        function copyConfig() {
+            const config = "tg://socks?server=143.14.105.121&port=5555&user=hanbaocloud&pass=hanbaocloud";
+            navigator.clipboard.writeText(config).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.remove('opacity-0', 'translate-y-10');
+                toast.classList.add('opacity-100', 'translate-y-0');
+                setTimeout(() => {
+                    toast.classList.add('opacity-0', 'translate-y-10');
+                    toast.classList.remove('opacity-100', 'translate-y-0');
+                }, 2500);
+            });
+        }
+
+        let music = document.getElementById('bg-music');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                document.getElementById('music-btn').innerHTML = '<i class="fas fa-music text-pink-400 text-xl"></i>';
+            } else {
+                music.play().catch(e => console.log("音乐播放需要用户交互"));
+                document.getElementById('music-btn').innerHTML = '<i class="fas fa-pause text-pink-400 text-xl"></i>';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function playSong() {
+            window.open('https://www.youtube.com/watch?v=149r0W_ah9s', '_blank');
+        }
+
+        function createRain() {
+            const rainContainer = document.getElementById('rain');
+            for (let i = 0; i < 140; i++) {
+                const drop = document.createElement('div');
+                drop.classList.add('drop');
+                drop.style.left = Math.random() * 100 + 'vw';
+                drop.style.animationDuration = (Math.random() * 0.6 + 0.5) + 's';
+                drop.style.animationDelay = Math.random() * 4 + 's';
+                drop.style.height = (Math.random() * 80 + 50) + 'px';
+                rainContainer.appendChild(drop);
+            }
+        }
+
+        window.onload = () => {
+            if (localStorage.theme === 'light') document.documentElement.classList.remove('dark');
+            createRain();
+            music.volume = 0.4;
+        };
+    </script>
+</body>
+</html>

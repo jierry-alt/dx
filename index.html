@@ -22,26 +22,15 @@
         }
         @keyframes twinkle { from { opacity: 0.4; } to { opacity: 1; } }
 
-        /* 调小后的跑马灯 */
         .marquee {
             position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-            background: rgba(30,15,60,0.75);
-            padding: 5px 0;
-            overflow: hidden;
-            font-size: 13px;
+            background: rgba(30,15,60,0.9); padding: 7px 0; overflow: hidden; font-size: 13.5px;
         }
         .marquee-content {
-            display: inline-block;
-            animation: marquee 20s linear infinite;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #e0bbff;
-            opacity: 0.9;
+            display: inline-block; animation: marquee 24s linear infinite;
+            font-weight: 700; letter-spacing: 2px; color: #e0bbff;
         }
-        @keyframes marquee { 
-            0% { transform: translateX(100%); } 
-            100% { transform: translateX(-100%); } 
-        }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
         .container { 
             position: relative; z-index: 10; 
@@ -71,47 +60,34 @@
             align-items: center;
         }
 
-        .node-info { text-align: left; }
+        .node-info { text-align: left; flex: 1; }
         .node-name { font-size: 13px; color: #d8b4fe; }
         .node-address { font-size: 17px; font-family: monospace; }
 
         .import-btn {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.25);
             color: white;
             border: none;
-            padding: 8px 16px;
+            padding: 9px 18px;
             border-radius: 12px;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.16);
-            padding: 15px;
-            border-radius: 16px;
-            font-size: 16px;
-        }
-
-        .info-bar {
-            margin-top: 30px;
             display: flex;
-            justify-content: space-around;
-            font-size: 14px;
-            background: rgba(255,255,255,0.08);
-            padding: 14px;
-            border-radius: 16px;
+            align-items: center;
+            gap: 6px;
         }
+        .import-btn:hover { background: rgba(255,255,255,0.35); }
     </style>
 </head>
 <body>
 
     <div class="stars" id="stars"></div>
 
-    <!-- 调小后的跑马灯 -->
+    <!-- 跑马灯 -->
     <div class="marquee">
         <div class="marquee-content">
-            🔥白嫖就是这么简单！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            🔥白嫖就是这么简单！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            白嫖就是这么简单！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            白嫖就是这么简单！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
     </div>
 
@@ -142,6 +118,7 @@
                 </div>
             </div>
 
+            <!-- 节点列表 -->
             <div id="node-list"></div>
         </div>
 
@@ -156,37 +133,32 @@
                 个人导航
             </a>
         </div>
-
-        <!-- 延迟和地区 -->
-        <div class="info-bar" id="info-bar">
-            <div>
-                <div style="color:#94a3b8; font-size:12px;">延迟</div>
-                <div id="latency" style="color:#4ade80; font-weight:bold;">-- ms</div>
-            </div>
-            <div>
-                <div style="color:#94a3b8; font-size:12px;">地区</div>
-                <div id="region" style="font-weight:bold;">检测中...</div>
-            </div>
-        </div>
     </div>
 
+    <!-- Toast -->
     <div id="toast" style="position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); color: white; padding: 12px 24px; border-radius: 9999px; font-size: 14px; display: none; z-index: 200;">
         配置已复制到剪贴板
     </div>
 
-    <!-- 背景音乐（自动播放） -->
-    <audio id="bg-music" loop autoplay>
+    <audio id="bg-music" loop>
         <source src="https://files.catbox.moe/n0zlan.ogg" type="audio/ogg">
     </audio>
 
     <script>
+        // 11个节点（你提供的全部）
         let proxies = [
-            { name: "节点 1", server: "43.100.106.246", port: "2222", user: "2222", pass: "2222" },
-            { name: "节点 2", server: "47.243.233.169", port: "1080", user: "123456", pass: "123456" },
-            { name: "节点 3", server: "143.14.105.121", port: "5555", user: "hanbaocloud", pass: "hanbaocloud" }
+            { name: "节点 1", server: "143.14.105.121", port: "5555", user: "hanbaocloud", pass: "hanbaocloud" },
+            { name: "节点 2", server: "47.254.240.76", port: "5555", user: "socks5", pass: "socks5" },
+            { name: "节点 3", server: "47.239.202.242", port: "6666", user: "6666", pass: "6666" },
+            { name: "节点 4", server: "43.100.106.246", port: "2222", user: "2222", pass: "2222" },
+            { name: "节点 5", server: "47.83.174.84", port: "6666", user: "6666", pass: "6666" },
+            { name: "节点 6", server: "47.83.186.60", port: "5555", user: "5555", pass: "5555" },
+            { name: "节点 7", server: "47.83.8.104", port: "6666", user: "6666", pass: "6666" },
+            { name: "节点 8", server: "43.100.106.218", port: "2222", user: "2222", pass: "2222" },
+            { name: "节点 9", server: "47.83.1.61", port: "5555", user: "5555", pass: "5555" },
+            { name: "节点 10", server: "47.83.174.84", port: "6666", user: "6666", pass: "6666" },
+            { name: "节点 11", server: "47.83.186.60", port: "5555", user: "5555", pass: "5555" }
         ];
-
-        let currentIndex = 0;
 
         function renderNodes() {
             const list = document.getElementById('node-list');
@@ -199,7 +171,9 @@
                         <div class="node-name">${p.name}</div>
                         <div class="node-address">${p.server}:${p.port}</div>
                     </div>
-                    <button class="import-btn" onclick="importProxy(${i}); event.stopImmediatePropagation();">导入</button>
+                    <button class="import-btn" onclick="importProxy(${i}); event.stopImmediatePropagation();">
+                        📥 导入
+                    </button>
                 `;
                 div.onclick = () => copyConfig(p);
                 list.appendChild(div);
@@ -219,31 +193,9 @@
                 toast.style.display = 'block';
                 setTimeout(() => toast.style.display = 'none', 2000);
             });
-            currentIndex = proxies.indexOf(p);
-            testLatency(p);
         }
 
-        async function testLatency(p) {
-            const start = Date.now();
-            const latencyEl = document.getElementById('latency');
-            latencyEl.textContent = '测试中...';
-            try {
-                await fetch(`https://${p.server}:${p.port}/?t=${Date.now()}`, { mode: 'no-cors' });
-            } catch(e) {}
-            const latency = Math.min(180, Date.now() - start + Math.floor(Math.random()*25));
-            latencyEl.textContent = latency + 'ms';
-        }
-
-        async function getUserRegion() {
-            try {
-                const res = await fetch('https://ipapi.co/json/');
-                const data = await res.json();
-                document.getElementById('region').textContent = data.country_name || '日本 🇯🇵';
-            } catch(e) {
-                document.getElementById('region').textContent = '日本 🇯🇵';
-            }
-        }
-
+        // 音乐控制
         let isPlaying = true;
         const music = document.getElementById('bg-music');
 
@@ -274,9 +226,6 @@
             renderNodes();
             music.volume = 0.42;
             music.play().catch(() => {});
-
-            getUserRegion();
-            copyConfig(proxies[0]);
         };
     </script>
 </body>

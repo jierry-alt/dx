@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Eternity - 永恒连接</title>
+    <title>裤佬免费TG代理 - 极致连接体验</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             min-height: 100vh;
             background: linear-gradient(135deg, #2a1b4a, #4c1d95, #7e22ce, #c026d3);
             color: white;
@@ -16,121 +15,56 @@
             overflow-y: auto;
         }
 
-        .stars {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-        }
-
+        .stars { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
         .star {
-            position: absolute;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 8px #f0abfc;
-            animation: twinkle 4s infinite alternate;
+            position: absolute; background: #fff; border-radius: 50%;
+            box-shadow: 0 0 8px #f0abfc; animation: twinkle 4s infinite alternate;
         }
+        @keyframes twinkle { from { opacity: 0.4; } to { opacity: 1; } }
 
-        @keyframes twinkle {
-            from { opacity: 0.4; }
-            to { opacity: 1; }
-        }
-
-        /* 小号跑马灯 */
+        /* 小跑马灯 */
         .marquee {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            background: rgba(30, 15, 60, 0.85);
-            padding: 6px 0;
-            overflow: hidden;
-            font-size: 13px;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+            background: rgba(30,15,60,0.9); padding: 7px 0; overflow: hidden; font-size: 13.5px;
         }
-
         .marquee-content {
-            display: inline-block;
-            animation: marquee 20s linear infinite;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #e0bbff;
+            display: inline-block; animation: marquee 24s linear infinite;
+            font-weight: 700; letter-spacing: 2px; color: #e0bbff;
         }
+        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
+        .container { position: relative; z-index: 10; max-width: 380px; margin: 85px auto 30px; padding: 0 20px; text-align: center; }
 
-        .container {
-            position: relative;
-            z-index: 10;
-            max-width: 360px;
-            margin: 75px auto 20px;
-            padding: 0 16px;
-            text-align: center;
-        }
-
-        .logo {
-            width: 58px;
-            height: 58px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 18px;
-            margin: 0 auto 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .title {
-            font-size: 30px;
-            font-weight: 900;
-            background: linear-gradient(to right, #c4b5fd, #f0abfc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0 0 6px;
-        }
-
-        .subtitle {
-            font-size: 15px;
-            color: #d8b4fe;
-        }
+        .main-title { font-size: 28px; font-weight: 900; line-height: 1.1; margin: 8px 0 4px; }
+        .subtitle { font-size: 13px; letter-spacing: 3px; color: #a5b4fc; opacity: 0.9; }
 
         .glass {
-            background: rgba(255, 255, 255, 0.14);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255,255,255,0.22);
-            border-radius: 20px;
-            padding: 18px;
-            margin: 18px 0;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            border-radius: 24px;
+            padding: 22px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
+        .status-row { display: flex; justify-content: space-between; margin-bottom: 18px; font-size: 14px; }
         .node-box {
-            background: rgba(255,255,255,0.12);
-            padding: 14px;
-            border-radius: 14px;
-            margin: 12px 0;
-            font-size: 17px;
-            font-family: monospace;
+            background: rgba(0,0,0,0.4); padding: 16px; border-radius: 16px;
+            margin: 16px 0; position: relative; cursor: pointer;
         }
+        .copy-icon { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 20px; opacity: 0.7; }
 
         .btn-primary {
-            background: linear-gradient(to right, #7e22ce, #c026d3);
-            padding: 15px;
-            border-radius: 16px;
-            font-size: 17.5px;
-            font-weight: bold;
-            margin: 12px 0;
-            display: block;
-            color: white;
-            text-decoration: none;
+            background: linear-gradient(to right, #0ea5e9, #3b82f6);
+            padding: 17px; border-radius: 18px; font-size: 18px; font-weight: bold;
+            margin: 18px 0; display: block; color: white; text-decoration: none;
+            box-shadow: 0 8px 20px rgba(14, 165, 233, 0.4);
         }
 
-        .btn-secondary {
-            background: rgba(255,255,255,0.16);
-            padding: 13px;
-            border-radius: 14px;
-            font-size: 15.5px;
+        .info-row {
+            display: flex; justify-content: space-between; font-size: 13px; margin-top: 18px; padding-top: 14px;
+            border-top: 1px solid rgba(148,163,184,0.2);
         }
     </style>
 </head>
@@ -138,7 +72,7 @@
 
     <div class="stars" id="stars"></div>
 
-    <!-- 小号跑马灯 -->
+    <!-- 跑马灯 -->
     <div class="marquee">
         <div class="marquee-content">
             🔥 致敬裤佬！翻墙违法 白嫖无罪 🔥&nbsp;&nbsp;&nbsp;&nbsp;
@@ -147,106 +81,4 @@
     </div>
 
     <!-- 音乐按钮 -->
-    <button onclick="toggleMusic()" id="music-btn"
-            style="position: fixed; top: 12px; left: 12px; z-index: 100; width: 46px; height: 46px; background: rgba(255,255,255,0.15); border: none; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 23px;">
-        <i class="fas fa-music"></i>
-    </button>
-
-    <div class="container">
-        <div class="logo">
-            <i class="fab fa-telegram-plane" style="font-size: 34px; color: #c4b5fd;"></i>
-        </div>
-        
-        <h1 class="title">Eternity</h1>
-        <p class="subtitle">永恒连接</p>
-
-        <div class="glass">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 16px; font-size: 13px;">
-                <div>
-                    <div style="color: #c4b5fe;">STATUS</div>
-                    <div style="color: #4ade80; font-weight: bold;">● 在线</div>
-                </div>
-                <div style="text-align: right;">
-                    <div style="color: #c4b5fe;">PROTOCOL</div>
-                    <div style="font-weight: bold;">SOCKS5</div>
-                </div>
-            </div>
-
-            <div class="node-box" onclick="copyConfig()">
-                <div style="font-size: 12.5px; color: #d8b4fe; margin-bottom: 3px;">节点地址</div>
-                <div>143.14.105.121:5555</div>
-            </div>
-
-            <a href="tg://socks?server=143.14.105.121&port=5555&user=hanbaocloud&pass=hanbaocloud" 
-               class="btn-primary">
-                一键连接 Eternity
-            </a>
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <button onclick="playSong()" class="btn-secondary">那些花儿</button>
-            <a href="https://zxsla.github.io/a/" target="_blank" class="btn-secondary" style="text-align:center; text-decoration:none; color:white;">个人导航</a>
-        </div>
-
-        <div style="margin-top: 24px; font-size: 12px; color: #c4b5fe; opacity: 0.7;">
-            Eternity Proxy • 2026
-        </div>
-    </div>
-
-    <!-- Toast -->
-    <div id="toast" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.85); color: white; padding: 12px 22px; border-radius: 9999px; font-size: 14px; display: none; z-index: 200;">
-        已复制到剪贴板
-    </div>
-
-    <audio id="bg-music" loop>
-        <source src="https://files.catbox.moe/udaz0l.mp3" type="audio/mpeg">
-    </audio>
-
-    <script>
-        function createStars() {
-            const container = document.getElementById('stars');
-            for (let i = 0; i < 100; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                const size = Math.random() * 3 + 1;
-                star.style.width = size + 'px';
-                star.style.height = size + 'px';
-                star.style.left = Math.random() * 100 + 'vw';
-                star.style.top = Math.random() * 100 + 'vh';
-                star.style.animationDuration = (Math.random() * 4 + 2) + 's';
-                container.appendChild(star);
-            }
-        }
-
-        function copyConfig() {
-            navigator.clipboard.writeText("tg://socks?server=143.14.105.121&port=5555&user=hanbaocloud&pass=hanbaocloud");
-            const toast = document.getElementById('toast');
-            toast.style.display = 'block';
-            setTimeout(() => toast.style.display = 'none', 2000);
-        }
-
-        let isPlaying = false;
-        const music = document.getElementById('bg-music');
-
-        function toggleMusic() {
-            isPlaying = !isPlaying;
-            if (isPlaying) {
-                music.play().catch(() => {});
-                document.getElementById('music-btn').innerHTML = '<i class="fas fa-pause"></i>';
-            } else {
-                music.pause();
-                document.getElementById('music-btn').innerHTML = '<i class="fas fa-music"></i>';
-            }
-        }
-
-        function playSong() {
-            window.open('https://www.youtube.com/watch?v=149r0W_ah9s', '_blank');
-        }
-
-        window.onload = () => {
-            createStars();
-            music.volume = 0.4;
-        };
-    </script>
-</body>
-</html>
+    <button onclick

@@ -6,77 +6,210 @@
     <title>Eternity - 永恒连接</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            margin: 0; padding: 0;
             min-height: 100vh;
             background: linear-gradient(135deg, #2a1b4a, #4c1d95, #7e22ce, #c026d3);
             color: white;
             font-family: system-ui, -apple-system, sans-serif;
             overflow-y: auto;
+            text-align: center;
         }
 
-        .stars { position: fixed; inset: 0; pointer-events: none; z-index: 1; }
-        .star {
-            position: absolute; background: #fff; border-radius: 50%;
-            box-shadow: 0 0 8px #f0abfc; animation: twinkle 4s infinite alternate;
+        .stars {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
         }
-        @keyframes twinkle { from { opacity: 0.4; } to { opacity: 1; } }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #f0abfc;
+            animation: twinkle 3.5s infinite alternate;
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.3; }
+            to { opacity: 1; }
+        }
 
         .marquee {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 50;
-            background: rgba(30,15,60,0.9); padding: 7px 0; overflow: hidden; font-size: 13.5px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(0,0,0,0.6);
+            padding: 8px 0;
+            font-size: 13px;
+            overflow: hidden;
+            white-space: nowrap;
         }
+
         .marquee-content {
-            display: inline-block; animation: marquee 24s linear infinite;
-            font-weight: 700; letter-spacing: 2px; color: #e0bbff;
-        }
-        @keyframes marquee { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-
-        .container { 
-            position: relative; z-index: 10; 
-            max-width: 380px; margin: 90px auto 40px; 
-            padding: 0 20px; text-align: center; 
+            display: inline-block;
+            animation: marquee 22s linear infinite;
+            font-weight: bold;
+            color: #e0bbff;
         }
 
-        .title { font-size: 32px; font-weight: 900; background: linear-gradient(to right, #c4b5fd, #f0abfc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 8px 0 6px; }
-        .subtitle { font-size: 15px; color: #d8b4fe; }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 360px;
+            margin: 90px auto 40px;
+            padding: 0 20px;
+        }
+
+        .title {
+            font-size: 31px;
+            font-weight: 900;
+            background: linear-gradient(to right, #c4b5fd, #f0abfc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
 
         .glass {
-            background: rgba(255,255,255,0.14);
-            backdrop-filter: blur(14px);
-            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.25);
             border-radius: 20px;
             padding: 20px;
             margin: 20px 0;
+            backdrop-filter: blur(10px);
         }
 
-        .node-box {
-            background: rgba(255,255,255,0.12);
-            padding: 16px;
-            border-radius: 16px;
-            margin: 16px 0;
-            font-size: 18px;
-            font-family: monospace;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: linear-gradient(to right, #7e22ce, #c026d3);
-            padding: 16px;
-            border-radius: 18px;
-            font-size: 18px;
-            font-weight: bold;
-            margin: 16px 0;
+        .btn {
             display: block;
-            color: white;
+            width: 100%;
+            padding: 16px;
+            margin: 12px 0;
+            border-radius: 16px;
+            font-size: 17px;
+            font-weight: bold;
             text-decoration: none;
+            color: white;
         }
 
-        .btn-secondary {
-            background: rgba(255,255,255,0.16);
-            padding: 15px;
-            border-radius: 16px;
-            font-size: 16px;
-        }
+        .btn-primary { background: linear-gradient(to right, #7e22ce, #c026d3); }
+        .btn-secondary { background: rgba(255,255,255,0.18); }
     </style>
 </head>
+<body>
+
+    <div class="stars" id="stars"></div>
+
+    <!-- 跑马灯 -->
+    <div class="marquee">
+        <div class="marquee-content">
+            🔥 致敬裤佬！翻墙违法 白嫖无罪 🔥&nbsp;&nbsp;&nbsp;&nbsp; 致敬裤佬！翻墙违法 白嫖无罪 &nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div>
+
+    <!-- 音乐按钮 -->
+    <button onclick="toggleMusic()" id="music-btn"
+            style="position:fixed;top:16px;left:16px;z-index:100;width:50px;height:50px;background:rgba(255,255,255,0.15);border:none;border-radius:14px;color:white;font-size:26px;">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <div class="container">
+        <div style="margin-bottom:30px;">
+            <div style="width:70px;height:70px;background:rgba(255,255,255,0.15);border-radius:20px;margin:0 auto 16px;display:flex;align-items:center;justify-content:center;">
+                <i class="fab fa-telegram-plane" style="font-size:42px;color:#c4b5fd;"></i>
+            </div>
+            <h1 class="title">Eternity</h1>
+            <p style="color:#d8b4fe;font-size:16px;">永恒连接</p>
+        </div>
+
+        <div class="glass">
+            <div style="display:flex;justify-content:space-between;margin-bottom:18px;font-size:14px;">
+                <div>
+                    <div style="color:#c4b5fe;">STATUS</div>
+                    <div style="color:#4ade80;font-weight:bold;">● 在线</div>
+                </div>
+                <div style="text-align:right;">
+                    <div style="color:#c4b5fe;">PROTOCOL</div>
+                    <div style="font-weight:bold;">SOCKS5</div>
+                </div>
+            </div>
+
+            <div onclick="copyConfig()" style="background:rgba(0,0,0,0.3);padding:16px;border-radius:16px;margin:16px 0;cursor:pointer;">
+                <div style="font-size:13px;color:#d8b4fe;">节点 1</div>
+                <div style="font-size:19px;">143.14.105.121:5555</div>
+            </div>
+
+            <a href="tg://socks?server=143.14.105.121&port=5555&user=hanbaocloud&pass=hanbaocloud" 
+               class="btn btn-primary">
+                一键连接当前节点
+            </a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+            <a href="tg://socks?server=143.14.105.121&port=5555&user=hanbaocloud&pass=hanbaocloud" 
+               class="btn btn-secondary">添加Telegram代理</a>
+            <a href="https://zxsla.github.io/a/" target="_blank" 
+               class="btn btn-secondary">个人导航</a>
+        </div>
+    </div>
+
+    <div id="toast" style="position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.8);color:white;padding:14px 24px;border-radius:9999px;font-size:15px;display:none;z-index:200;">
+        已复制到剪贴板
+    </div>
+
+    <audio id="bg-music" loop autoplay>
+        <source src="https://files.catbox.moe/udaz0l.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // 生成星星
+        function createStars() {
+            const container = document.getElementById('stars');
+            for (let i = 0; i < 120; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3.5 + 1.5;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.animationDuration = (Math.random() * 5 + 2) + 's';
+                container.appendChild(star);
+            }
+        }
+
+        function copyConfig() {
+            navigator.clipboard.writeText("tg://socks?server=143.14.105.121&port=5555&user=hanbaocloud&pass=hanbaocloud");
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 2200);
+        }
+
+        let isPlaying = true;
+        const music = document.getElementById('bg-music');
+
+        function toggleMusic() {
+            isPlaying = !isPlaying;
+            if (isPlaying) music.play();
+            else music.pause();
+            document.getElementById('music-btn').innerHTML = isPlaying ? '<i class="fas fa-pause"></i>' : '<i class="fas fa-music"></i>';
+        }
+
+        window.onload = () => {
+            createStars();
+            music.volume = 0.45;
+            // 自动播放增强处理
+            music.play().catch(() => {
+                document.body.addEventListener('touchstart', () => music.play(), { once: true });
+            });
+        };
+    </script>
+</body>
+</html>
